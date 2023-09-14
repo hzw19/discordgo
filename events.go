@@ -45,6 +45,16 @@ type Ready struct {
 	PrivateChannels []*Channel   `json:"private_channels"`
 }
 
+type IframeModalCreate struct {
+	ChannelID  string `json:"channel_id"`
+	CustomID   string `json:"custom_id"`
+	ID         string `json:"id"`
+	IframePath string `json:"iframe_path"`
+	ModalSize  int64  `json:"modal_size"`
+	Nonce      string `json:"nonce"`
+	Title      string `json:"title"`
+}
+
 // ChannelCreate is the data for a ChannelCreate event.
 type ChannelCreate struct {
 	*Channel

@@ -68,7 +68,28 @@ const (
 	voiceServerUpdateEventType                   = "VOICE_SERVER_UPDATE"
 	voiceStateUpdateEventType                    = "VOICE_STATE_UPDATE"
 	webhooksUpdateEventType                      = "WEBHOOKS_UPDATE"
+	interactionIframModalCreateEVentType         = "INTERACTION_IFRAME_MODAL_CREATE"
 )
+
+// interactionIframModalCreateEventHandler is an event handler for ApplicationCommandPermissionsUpdate events.
+type interactionIframModalCreateEventHandler func(*Session, *IframeModalCreate)
+
+// Type returns the event type for ApplicationCommandPermissionsUpdate events.
+func (eh interactionIframModalCreateEventHandler) Type() string {
+	return interactionIframModalCreateEVentType
+}
+
+// New returns a new instance of ApplicationCommandPermissionsUpdate.
+func (eh interactionIframModalCreateEventHandler) New() interface{} {
+	return &IframeModalCreate{}
+}
+
+// Handle is the handler for ApplicationCommandPermissionsUpdate events.
+func (eh interactionIframModalCreateEventHandler) Handle(s *Session, i interface{}) {
+	if t, ok := i.(*IframeModalCreate); ok {
+		eh(s, t)
+	}
+}
 
 // applicationCommandPermissionsUpdateEventHandler is an event handler for ApplicationCommandPermissionsUpdate events.
 type applicationCommandPermissionsUpdateEventHandler func(*Session, *ApplicationCommandPermissionsUpdate)
@@ -1459,4 +1480,5 @@ func init() {
 	registerInterfaceProvider(voiceServerUpdateEventHandler(nil))
 	registerInterfaceProvider(voiceStateUpdateEventHandler(nil))
 	registerInterfaceProvider(webhooksUpdateEventHandler(nil))
+	registerInterfaceProvider(interactionIframModalCreateEventHandler(nil))
 }
